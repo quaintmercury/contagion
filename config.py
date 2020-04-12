@@ -1,43 +1,42 @@
-"""Configuration -
-Isolate to the extent possible values that
-control choices we could make in variations
-on the game, such as the dimension (9x9 vs 16x16, etc),
-symbols, etc.
+"""Configuration.
+We often make several experiments with a model and "tune"
+parameters, either to refine it or to better understand
+what the affect is of changing assumptions ("sensitivity analysis").
+We could do this by changing Python code, but to the extent possible
+it's better to separate out the parameters.  For this we typically
+read a separate configuration file.
 """
 
-# ---------  Configuration of the model component ----------
-# Dimension of board.  In principle we could
-# do 9x9, 16x16, 25x25, etc.
-# 9x9 (root=3) and 16x16 (root=4)
-# are probably the only practical choices.
-ROOT = 3
-NROWS = ROOT * ROOT
-NCOLS = ROOT * ROOT
-NBLOCKS = ROOT * ROOT
+import configparser
 
-# The set of symbols we can use must
-# be the same as the number of rows, columns,
-# and blocks.
-CHOICES = "123456789"
-PENCIL = ["123", "456", "789"]
-# For 16x16, it would be
-#CHOICES =  "0123456789ABCDEF"
-#PENCIL = ["0123", "4567", "890A", "BCDE"]
+import logging
+logging.basicConfig()
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
 
-# One symbol, not in Choices, for Unknown
-UNKNOWN = "."
+CONF = None
 
-# ---------- Configuration of the graphical view component ---
+def configure(filename: str):
+    global CONF
+    CONF = configparser.ConfigParser(inline_comment_prefixes="#")
+    log.info(f"Configuring from file {filename}")
+    CONF.read_file(open(filename))
 
-# Display options
-# Color scheme:  White background,
-#  beige for unknown cells, green for known,
-#  pink for the group we're currently working on
-COLOR_BACKGROUND = "#ffffff"  # White
-COLOR_KNOWN = "#ccffcc"       # Green
-COLOR_UNKNOWN = "#ffffcc"     # Beige
-COLOR_WORKING = "#ffccff"     # Pink
+def get_float(section: str, parameter: str) -> float:
+    assert CONF, "Must call configure first"
+    param_str = CONF[section][parameter]
+    return float(param_str)
 
+def get_int(section: str, parameter: str) -> int:
+    assert CONF, "Must call configure first"
+    param_str = CONF[section][parameter]
+    return int(param_str)
+
+def get_pcnt(section: str, parameter: str) -> float:
+    """Interpret integer as fraction of 100"""
+    assert CONF, "Must call configure first"
+    param_str = CONF[section][parameter]
+    return float(param_str)/100.0
 
 
 
