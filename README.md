@@ -1,2 +1,2 @@
-# Contagion (CIS 211 mini-project)
-A very simple grid model of contagion
+# Contagion (CIS 211 project)
+A  simple grid model of contagion
