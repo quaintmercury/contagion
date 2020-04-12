@@ -18,7 +18,6 @@ CIS 211.
 """
 from graphics.graphics import *
 import time
-# Python 3.6+: Gradual typing
 import typing
 
 BLACK = color_rgb(0,0,0)
