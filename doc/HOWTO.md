@@ -546,7 +546,7 @@ Within the constructor for `Population`, we will replace
 ``` 
 by 
 ```python
-                row.append(self._random_individual(row_i, col_i))\
+                row.append(self._random_individual(row_i, col_i))
 ```
 and then write a `_random_individual` method that creates either 
 a `Typical` or an `AtRisk` individual randomly, in the specified 
@@ -955,6 +955,8 @@ What would the impact be if some small portion of the population
 ignored warnings to keep close to home and traveled widely?  
 How many travelers would it take to make a significant impact? 
 
-
-
-## Add a new class 
+You will turn in both `model.py` and the accompanying `contagion.ini`
+configuration file with configuration for your new `Wanderer` class 
+of individual.  Make sure you have observed behavior of your 
+`Wanderer` class in the simulation; this will require changes to 
+both files. 
