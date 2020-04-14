@@ -1,15 +1,18 @@
 """Simple grid model of contagion"""
 
-from graphics.graphics import color_rgb
 import grid_view
 import change_listener
 import model
 import contagion_stats
 
 import time
-
 import config
 import argparse
+
+import logging
+logging.basicConfig()
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
 
 def cli() -> object:
     """Command line interface returns an object with
@@ -20,12 +23,6 @@ def cli() -> object:
     parser.add_argument("conf", nargs="?",
                         default="contagion.ini")
     return parser.parse_args()
-
-import logging
-logging.basicConfig()
-log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
-
 
 
 
